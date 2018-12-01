@@ -17,6 +17,7 @@ import ProjectTitleInput from './project-title-input.jsx';
 import AccountNav from '../../containers/account-nav.jsx';
 import LoginDropdown from './login-dropdown.jsx';
 import SB3Downloader from '../../containers/sb3-downloader.jsx';
+import SB3Uploader from '../../containers/sb3-uploader.jsx';
 import DeletionRestorer from '../../containers/deletion-restorer.jsx';
 import TurboMode from '../../containers/turbo-mode.jsx';
 
@@ -445,7 +446,8 @@ class MenuBar extends React.Component {
                             </MenuBarMenu>
                         </div>
                     </div>
-                    <Divider className={classNames(styles.divider)} />
+                    {/* 隐藏教程 */}
+                    {/* <Divider className={classNames(styles.divider)} />
                     <div
                         aria-label={this.props.intl.formatMessage(ariaMessages.tutorials)}
                         className={classNames(styles.menuBarItem, styles.hoverable)}
@@ -456,7 +458,7 @@ class MenuBar extends React.Component {
                             src={helpIcon}
                         />
                         <FormattedMessage {...ariaMessages.tutorials} />
-                    </div>
+                    </div> */}
                     <Divider className={classNames(styles.divider)} />
                     <div className={classNames(styles.menuBarItem, styles.growable)}>
                         <MenuBarItemTooltip
@@ -469,6 +471,19 @@ class MenuBar extends React.Component {
                             />
                         </MenuBarItemTooltip>
                     </div>
+                    {/* 立即保存 */}
+                    <Divider className={classNames(styles.divider)} />
+                    <SB3Uploader>{(className, downloadProject) => (
+                        <Button
+                            className={classNames(
+                                styles.menuBarButton,
+                                styles.shareButton
+                            )}
+                            onClick={this.handleCloseFileMenuAndThen(downloadProject)}
+                        >
+                            {saveNowMessage}
+                        </Button>
+                    )}</SB3Uploader>
                     <div className={classNames(styles.menuBarItem)}>
                         {this.props.canShare ? shareButton : (
                             this.props.showComingSoon ? (
@@ -519,7 +534,7 @@ class MenuBar extends React.Component {
 
                 {/* show the proper UI in the account menu, given whether the user is
                 logged in, and whether a session is available to log in with */}
-                <div className={styles.accountInfoGroup}>
+                {false && <div className={styles.accountInfoGroup}>
                     {this.props.sessionExists ? (
                         this.props.username ? (
                             // ************ user is logged in ************
@@ -659,7 +674,7 @@ class MenuBar extends React.Component {
                             ) : []}
                         </React.Fragment>
                     )}
-                </div>
+                </div>}
             </Box>
         );
     }
