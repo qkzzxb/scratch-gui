@@ -16,7 +16,8 @@ import styles from './index.css';
 // Register "base" page view
 analytics.pageview('/');
 
-const appTarget = document.createElement('div');
+// const appTarget = document.createElement('div');
+const appTarget = document.querySelector('#qima-scratch');
 appTarget.className = styles.app;
 document.body.appendChild(appTarget);
 
