@@ -29,7 +29,7 @@ export default appTarget => {
     const backpackHost = backpackHostMatches ? backpackHostMatches[1] : null;
 
     const backpackOptions = {
-        visible: true,
+        visible: false,
         host: backpackHost
     };
     if (process.env.NODE_ENV === 'production' && typeof window === 'object') {
