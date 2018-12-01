@@ -63,7 +63,7 @@ const WrappedPlayer = compose(
     TitledHOC
 )(ConnectedPlayer);
 
-const appTarget = document.createElement('div');
+const appTarget = document.querySelector('#qima-scratch');
 document.body.appendChild(appTarget);
 
 ReactDOM.render(<WrappedPlayer isPlayerOnly />, appTarget);

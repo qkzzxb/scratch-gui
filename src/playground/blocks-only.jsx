@@ -29,7 +29,7 @@ const BlocksOnly = props => (
 
 const App = AppStateHOC(HashParserHOC(BlocksOnly));
 
-const appTarget = document.createElement('div');
+const appTarget = document.querySelector('#qima-scratch');
 document.body.appendChild(appTarget);
 
 ReactDOM.render(<App />, appTarget);

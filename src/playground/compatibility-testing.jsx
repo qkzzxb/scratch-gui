@@ -50,7 +50,7 @@ class Player extends React.Component {
     }
 }
 
-const appTarget = document.createElement('div');
+const appTarget = document.querySelector('#qima-scratch');
 document.body.appendChild(appTarget);
 
 ReactDOM.render(<Player />, appTarget);
