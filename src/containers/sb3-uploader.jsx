@@ -25,15 +25,42 @@ class SB3Uploader extends React.Component {
             'downloadProject'
         ]);
     }
-    downloadProject () {
+    componentDidMount() {
+        window.downloadProject = this.downloadProject;
+    }
 
-        this.props.saveProjectSb3().then(content => {
-            console.log('文件上传前blob信息');
-            console.log(content);
-            if (this.props.onSaveFinished) {
-                this.props.onSaveFinished();
-            }
-        });
+    _getProjectCover() { //获取封面
+        return new Promise((resolve, reject) => {
+            const { renderer } = this.props;
+            const { canvas } = renderer;
+            renderer.draw();
+            canvas.toBlob(blob => {
+                resolve(blob);
+            });
+        })
+    }
+
+    _getProjectSb3() {//获取sb3
+        return new Promise((resolve, reject) => {
+            const { saveProjectSb3 } = this.props;
+            saveProjectSb3()
+            .then(blob => {
+                resolve(blob);
+            });
+        })
+    }
+
+    downloadProject () {
+        console.log(this.props.vm);
+        // this.props.vm.deserializeProject('https://steam.nosdn.127.net/3c19f506-f8f6-40f8-8a4b-68952bbdf383.sb3');
+        return
+        Promise.all([
+            this._getProjectSb3(),
+            this._getProjectCover()
+        ])
+        .then(res => {
+            console.log('downloadProject', res)
+        })
     }
     render () {
         const {
@@ -67,7 +94,10 @@ SB3Uploader.defaultProps = {
 
 const mapStateToProps = state => ({
     saveProjectSb3: state.scratchGui.vm.saveProjectSb3.bind(state.scratchGui.vm),
-    projectFilename: getProjectFilename(state.scratchGui.projectTitle, projectTitleInitialState)
+    // loadProject: state.scratchGui.vm.loadProject.bind(state.scratchGui.vm),
+    projectFilename: getProjectFilename(state.scratchGui.projectTitle, projectTitleInitialState),
+    renderer: state.scratchGui.vm.renderer,
+    vm: state.scratchGui.vm
 });
 
 export default connect(
